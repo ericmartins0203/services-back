@@ -11,34 +11,43 @@ class UserService {
     }
 
     private async isCPFInDatabase (cpf: string) {
-        const userFound = await this.userRepository.findOneOrFail({ where: { cpf } })
+        const userFound = await this.userRepository.findOne({ where: { cpf } })
 
         return !!userFound
     }
 
-    async get (id: string) : Promise<User> {
-        const user = await this.userRepository.findOneOrFail({ where: { id } })
+    async create (body: User) : Promise<User> {
+        const alreadyExist = await this.isCPFInDatabase(body.cpf)
 
-        return user
+        if (alreadyExist) {
+            throw new Error("CPF já existe")
+        }
+        return this.userRepository.save(body)
+    }
+
+    async get (id: string) : Promise<User|string> {
+        const user = await this.userRepository.findOne({ where: { id } })
+
+        if(user){
+            return user
+        }
+        throw new Error("Id não encontrado")
     }
 
     list () {
         return this.userRepository.find()
     }
 
-    async create (body: User) : Promise<User> {
-        if (await this.isCPFInDatabase(body.cpf)) {
-            throw new Error("CPF already exists")
-        }
-        return this.userRepository.save(body)
-    }
-
     async update (id: string, body: User) : Promise<User> {
-        const user = await this.userRepository.findOneOrFail({where:{id}})
+        const user = await this.userRepository.findOne({where:{id}})
+
+        if(!user){
+            throw new Error("Id não encontrado")
+        }
 
         if (body.cpf) {
             if (await this.isCPFInDatabase(body.cpf)) {
-                throw new Error("CPF already exists")
+                throw new Error("CPF já existe")
             }
         }
 

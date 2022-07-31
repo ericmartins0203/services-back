@@ -16,8 +16,8 @@ class UserController {
             if (e instanceof Error) {
                 response.status(HTTP_STATUS.BAD_REQUEST).json(e.message)
             }
+            response.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json('e')
         }
-        // response.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json('e')
     }
 
     public static async get (request: Request, response: Response) {

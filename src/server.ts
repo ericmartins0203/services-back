@@ -6,7 +6,7 @@ import express from 'express'
 // import swaggerFile from "./swagger.json"
 import databaseInitialize from './data-source'
 import routes from './routes'
-// import startRoutes from './src/routers'
+import cors from 'cors'
 
 export const app: express.Application = express()
 
@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 3000
 databaseInitialize()
 
 app.use(express.json())
+app.use(cors())
 app.use(routes);
 
 app.listen(PORT, () => {
