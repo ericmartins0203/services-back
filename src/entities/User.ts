@@ -18,21 +18,21 @@ export class User {
     @Column({unique: true})
     cpf: string
 
-    @Column()
+    @Column({nullable: true})
     alias: string
 
-    @Column()
+    @Column({nullable: true})
     gender: string
 
-    @Column()
+    @Column({nullable: true})
     phone: string
 
-    @Column()
+    @Column({nullable: true})
     address: string
 
-    @Column()
+    @Column({nullable: true})
     comments: string
 
-    @Column()
+    @Column({nullable: true})
     profilePicture: string
 }
