@@ -18,15 +18,18 @@ const typeorm_1 = require("typeorm");
 const config_1 = __importDefault(require("./config"));
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: config_1.default.username,
-    password: config_1.default.password,
-    database: config_1.default.database,
+    url: config_1.default.url,
+    ssl: process.env.NODE_ENV === "production" ?
+        { rejectUnauthorized: false }
+        : false,
     synchronize: false,
     logging: true,
-    entities: ["src/entities/*.ts"],
-    migrations: ["src/migrations/*.ts"],
+    entities: process.env.NODE_ENV === "production"
+        ? ["dist/entities/*.js"]
+        : ["src/entities/*.ts"],
+    migrations: process.env.NODE_ENV === "production"
+        ? ["dist/migrations/*.js"]
+        : ["src/migrations/*.ts"],
 });
 function databaseInitialize() {
     return __awaiter(this, void 0, void 0, function* () {

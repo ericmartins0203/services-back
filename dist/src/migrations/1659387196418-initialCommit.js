@@ -9,29 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initialMigration1659288360530 = void 0;
-class initialMigration1659288360530 {
+exports.initialCommit1659387196418 = void 0;
+class initialCommit1659387196418 {
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`CREATE TABLE IF NOT EXISTS "user" (
-            "id" BIGSERIAL PRIMARY KEY NOT NULL,
-            "createDate" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            "updateDate" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            "name" VARCHAR(255) NOT NULL,
-            "cpf" VARCHAR(255) NOT NULL UNIQUE,
-            "alias" VARCHAR(255),
-            "gender" VARCHAR(255),
-            "phone" VARCHAR(255),
-            "address" VARCHAR(255),
-            "comments" VARCHAR(255),
-            "profilePicture" VARCHAR(255)
-            )`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`DROP TABLE "user"`);
         });
     }
 }
-exports.initialMigration1659288360530 = initialMigration1659288360530;
+exports.initialCommit1659387196418 = initialCommit1659387196418;
