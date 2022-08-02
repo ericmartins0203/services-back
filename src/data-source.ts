@@ -5,15 +5,15 @@ import config from "./config"
 export const AppDataSource = new DataSource({
     type: "postgres",
     url: config.url,
-    ssl: process.env.NODE_ENV === "production" ?
+    ssl: config.node_env === "production" ?
     { rejectUnauthorized: false}
     : false,
     synchronize: false,
     logging: true,
-    entities: process.env.NODE_ENV === "production"
+    entities: config.node_env === "production"
         ? ["dist/src/entities/*.js"]
         : ["src/entities/*.ts"],
-    migrations: process.env.NODE_ENV === "production"
+    migrations: config.node_env === "production"
         ? ["dist/src/migrations/*.js"]
         : ["src/migrations/*.ts"],
   })
